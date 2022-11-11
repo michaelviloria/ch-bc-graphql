@@ -31,6 +31,10 @@ class ProductsApi {
 		}
 	}
 
+	async getCount() {
+		return await this.productsDao.getCount();
+	}
+
 	async addProduct(product) {
 		try {
 			const productSended = await this.productsDao.addProduct(product);

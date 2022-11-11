@@ -37,6 +37,14 @@ class ProductsDao {
 		}
 	}
 
+	async getCount() {
+		try {
+			return await Product.collection.countDocuments();
+		} catch (error) {
+			logApp.info("*** Error ***", error);
+		}
+	}
+
 	async update(id, product) {
 		try {
 			return await Product.findOneAndReplace({ id }, product);

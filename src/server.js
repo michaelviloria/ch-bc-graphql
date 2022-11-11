@@ -6,10 +6,10 @@ import compression from "compression";
 import cors from "cors";
 import config from "../config.js";
 import RouterPage from "./routes/routes.js";
-import RouterProducts from "./routes/products.js";
 import mongoose from "mongoose";
 import { logApp, logError } from "./utils/apiLogs.js";
 import { graphqlHTTP } from "express-graphql";
+import { graphqlSchema, root } from "./models/Graphql.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -51,8 +51,14 @@ app.use(passport.session());
 app.set("view engine", ".pug");
 app.set("views", "./src/views");
 
-const routerProducts = new RouterProducts();
-app.use("/api/products", routerProducts.start());
+app.use(
+	"/graphql",
+	graphqlHTTP({
+		schema: graphqlSchema,
+		rootValue: root,
+		// graphiql: true,
+	})
+);
 
 const routerPage = new RouterPage();
 app.use("/", routerPage.start());

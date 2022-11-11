@@ -1,32 +1,39 @@
-## Testeamos nuestra API
+# Reformando nuestra API para usar GraphQL
 
-Agregué testing usando **mocha**, **supertest** y **chai**
+Agregué un nuevo archivo en la carpeta `models` llamado **Graphql.js** en donde cree el esquema de `graphQL` y el **root** de `express-graphql`.
 
 ```console
 src
-└── test
-    └── product.test.js
+└── models
+    └── Graphql.js
 ```
 
-Para correr los tests se puede ejecutar los siguientes comandos _(debe estár levantado el servidor)_
+## Tipos de consultas
 
-### `npm run test:product`
+### `productCount`
 
-Este comando mostrará por terminal los resultados.
+Da como resultado la cantidad de **productos** guardados en el servidor. _(Retorna un valor númerico)_.
 
-```console
+### `products`
 
-test api productos
-    GET
-      ✔ Deberia retornar un status 200 (145ms)
-    POST
-      ✔ Debería incorporar un nuevo producto (111ms)
-    PUT
-      ✔ Deberia actualizar un producto (99ms)
-    DELETE
-      ✔ Deberia eliminar un producto (101ms)
+Da como resultado todos los **productos** guardados en el servidor. _(Retorna un array de objetos)_.
 
+### `findProduct(id)`
 
-  4 passing (480ms)
+Da como resultado un **producto** que coincida con el **id** especificado. _(Retorna un objeto)_.
 
-```
+---
+
+## Tipos de mutaciones
+
+### `addProduct(id, name, price, stock)`
+
+Agrega un nuevo **producto** al servidor. _(Retorna un objeto del producto agregado)_.
+
+### `updateProduct(id, name, price, stock)`
+
+Actualiza toda la información de un **producto** que coincida con el **id** especificado. _(Retorna un objeto del producto anterior)_.
+
+### `deleteProduct(id)`
+
+Elimina un **producto** que coincida con el **id** especificado. _(Retorna un objeto con el producto eliminado)_.
